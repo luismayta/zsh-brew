@@ -61,7 +61,7 @@ function brew::post_install {
             Redhat | RedHat)
               brew install homebrew/dupes/gperf
               ;;
-            Debian | Ubuntu)
+            Debian | Ubuntu | "")
               brew install \
                 jq
               ;;
@@ -79,7 +79,7 @@ function brew::load {
       darwin*) ;;
       linux*)
         case $DIST in
-          RedHat | Redhat | Debian)
+          RedHat | Redhat | Debian | "")
             if [ -d /home/linuxbrew/.linuxbrew ]; then
               export MANPATH=/home/linuxbrew/.linuxbrew/share/man:$MANPATH
               export INFOPATH=/home/linuxbrew/.linuxbrew/share/info:$INFOPATH
