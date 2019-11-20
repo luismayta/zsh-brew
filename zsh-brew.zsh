@@ -8,10 +8,14 @@
 #   Luis Mayta <slovacus@gmail.com>
 #
 
+package_name=brew
+
 plugin_dir=$(dirname "${0}":A)
+
 # shellcheck source=/dev/null
 source "${plugin_dir}"/src/helpers/messages.zsh
-package_name=brew
+# shellcheck source=/dev/null
+source "${plugin_dir}"/src/helpers/tools.zsh
 
 function brew::install::osx {
     if [ -x "$(command which ruby)" ]; then
@@ -75,6 +79,7 @@ function brew::post_install {
 }
 
 function brew::load {
+    PATH=$(get_path)
     case "${OSTYPE}" in
       darwin*) ;;
       linux*)
