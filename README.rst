@@ -1,5 +1,5 @@
 zsh-brew
-===========
+========
 
 |Build Status| |GitHub issues| |GitHub license|
 
