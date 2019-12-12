@@ -12,13 +12,13 @@ brew_package_name=brew
 
 
 function brew::install::osx {
-    if [ -x "$(command which ruby)" ]; then
+    if type -p ruby > /dev/null; then
         ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
     fi
 }
 
 function brew::install::linux {
-    if [ -x "$(command which ruby)" ]; then
+    if type -p ruby > /dev/null; then
         ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install)"
         brew vendor-install ruby
     fi
@@ -44,7 +44,7 @@ function brew::dependences {
 }
 
 function brew::post_install {
-    if [ -x "$(command which brew)" ]; then
+    if type -p brew > /dev/null; then
         brew install gcc
 
       case "${OSTYPE}" in
@@ -125,7 +125,7 @@ function brew::load {
 
 brew::load
 
-if [ ! -x "$(command which brew)" ]; then
+if ! type -p brew > /dev/null; then
     brew::install
     brew::post_install
 fi
