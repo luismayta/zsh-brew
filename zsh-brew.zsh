@@ -26,7 +26,7 @@ function brew::install::linux {
 
 
 function brew::install {
-    message_info "Installing ${brew_package_name}"
+    messages_info "Installing ${brew_package_name}"
     case "${OSTYPE}" in
     darwin*)
         brew::install:osx
@@ -35,12 +35,12 @@ function brew::install {
         brew::install::linux
       ;;
     esac
-    message_success "${brew_package_name} Installed"
+    messages_success "${brew_package_name} Installed"
 }
 
 function brew::dependences {
-    message_info "Installing Dependences for ${brew_package_name}"
-    message_success "${brew_package_name} Dependences Installed"
+    messages_info "Installing Dependences for ${brew_package_name}"
+    messages_success "${brew_package_name} Dependences Installed"
 }
 
 function brew::post_install {
