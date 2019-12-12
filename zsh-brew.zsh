@@ -8,15 +8,8 @@
 #   Luis Mayta <slovacus@gmail.com>
 #
 
-package_name=brew
+brew_package_name=brew
 
-plugin_dir=$(dirname "${0}":A)
-
-# shellcheck source=/dev/null
-source "${plugin_dir}"/src/helpers/messages.zsh
-
-# shellcheck source=/dev/null
-source "${plugin_dir}"/src/helpers/tools.zsh
 
 function brew::install::osx {
     if [ -x "$(command which ruby)" ]; then
@@ -33,7 +26,7 @@ function brew::install::linux {
 
 
 function brew::install {
-    message_info "Installing ${package_name}"
+    message_info "Installing ${brew_package_name}"
     case "${OSTYPE}" in
     darwin*)
         brew::install:osx
@@ -42,12 +35,12 @@ function brew::install {
         brew::install::linux
       ;;
     esac
-    message_success "${package_name} Installed"
+    message_success "${brew_package_name} Installed"
 }
 
 function brew::dependences {
-    message_info "Installing Dependences for ${package_name}"
-    message_success "${package_name} Dependences Installed"
+    message_info "Installing Dependences for ${brew_package_name}"
+    message_success "${brew_package_name} Dependences Installed"
 }
 
 function brew::post_install {
@@ -88,12 +81,12 @@ function brew::load {
             if [ -d /home/linuxbrew/.linuxbrew ]; then
               export MANPATH=/home/linuxbrew/.linuxbrew/share/man:$MANPATH
               export INFOPATH=/home/linuxbrew/.linuxbrew/share/info:$INFOPATH
-              path::prepend "/home/linuxbrew/.linuxbrew/bin"
+              path_prepend "/home/linuxbrew/.linuxbrew/bin"
             elif [ -d ~/.linuxbrew ]; then
               export MANPATH=$HOME/.linuxbrew/share/man:$MANPATH
               export INFOPATH=$HOME/.linuxbrew/share/info:$INFOPATH
               export LD_LIBRARY_PATH=$HOME/.linuxbrew/lib:$LD_LIBRARY_PATH
-              path::prepend "${HOME}/.linuxbrew/bin"
+              path_prepend "${HOME}/.linuxbrew/bin"
             fi
             ;;
           Ubuntu)
@@ -102,12 +95,12 @@ function brew::load {
                 if [ -d /home/linuxbrew/.linuxbrew ]; then
                   export MANPATH=/home/linuxbrew/.linuxbrew/share/man:$MANPATH
                   export INFOPATH=/home/linuxbrew/.linuxbrew/share/info:$INFOPATH
-                  path::prepend "/home/linuxbrew/.linuxbrew/bin"
+                  path_prepend "/home/linuxbrew/.linuxbrew/bin"
                 elif [ -d ~/.linuxbrew ]; then
                   export MANPATH=$HOME/.linuxbrew/share/man:$MANPATH
                   export INFOPATH=$HOME/.linuxbrew/share/info:$INFOPATH
                   export LD_LIBRARY_PATH=$HOME/.linuxbrew/lib:$LD_LIBRARY_PATH
-                  path::prepend "${HOME}/.linuxbrew/bin"
+                  path_prepend "${HOME}/.linuxbrew/bin"
                 fi
                 ;;
               16.04 | 18.04)
@@ -115,12 +108,12 @@ function brew::load {
                   export MANPATH=/home/linuxbrew/.linuxbrew/share/man:$MANPATH
                   export INFOPATH=/home/linuxbrew/.linuxbrew/share/info:$INFOPATH
                   export LD_LIBRARY_PATH=/home/linuxbrew/.linuxbrew/lib:$LD_LIBRARY_PATH
-                  path::prepend "/home/linuxbrew/.linuxbrew/bin"
+                  path_prepend "/home/linuxbrew/.linuxbrew/bin"
                 elif [ -d ~/.linuxbrew ]; then
                   export MANPATH=$HOME/.linuxbrew/share/man:$MANPATH
                   export INFOPATH=$HOME/.linuxbrew/share/info:$INFOPATH
                   export LD_LIBRARY_PATH=$HOME/.linuxbrew/lib:$LD_LIBRARY_PATH
-                  path::prepend "${HOME}/.linuxbrew/bin"
+                  path_prepend "${HOME}/.linuxbrew/bin"
                 fi
                 ;;
             esac
