@@ -12,20 +12,27 @@ brew_package_name=brew
 
 
 function brew::install::osx {
-    if type -p ruby > /dev/null; then
-        ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-    fi
+    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 }
 
 function brew::install::linux {
-    if type -p ruby > /dev/null; then
-        ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install)"
-        brew vendor-install ruby
+    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install)"
+    brew vendor-install ruby
+}
+
+function brew::dependences::install {
+    messages_info "Installing Dependences for ${brew_package_name}"
+    messages_success "${brew_package_name} Dependences Installed"
+}
+
+function brew::dependences::checked {
+    if ! type -p ruby > /dev/null; then
+      messages_error "Please install ruby with rvm for  ${brew_package_name}"
     fi
 }
 
-
 function brew::install {
+    brew::dependences::checked
     messages_info "Installing ${brew_package_name}"
     case "${OSTYPE}" in
     darwin*)
@@ -36,11 +43,6 @@ function brew::install {
       ;;
     esac
     messages_success "${brew_package_name} Installed"
-}
-
-function brew::dependences {
-    messages_info "Installing Dependences for ${brew_package_name}"
-    messages_success "${brew_package_name} Dependences Installed"
 }
 
 function brew::post_install {
