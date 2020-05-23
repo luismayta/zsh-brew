@@ -21,19 +21,20 @@ function brew::install::linux {
 }
 
 function brew::dependences::install {
-    messages_info "Installing Dependences for ${brew_package_name}"
-    messages_success "${brew_package_name} Dependences Installed"
+    message_info "Installing Dependences for ${brew_package_name}"
+    message_success "${brew_package_name} Dependences Installed"
 }
 
 function brew::dependences::checked {
     if ! type -p ruby > /dev/null; then
-      messages_error "Please install ruby with rvm for  ${brew_package_name}"
+      message_warning "Please install ruby with rvm for  ${brew_package_name}"
+      return
     fi
 }
 
 function brew::install {
     brew::dependences::checked
-    messages_info "Installing ${brew_package_name}"
+    message_info "Installing ${brew_package_name}"
     case "${OSTYPE}" in
     darwin*)
         brew::install:osx
@@ -42,7 +43,7 @@ function brew::install {
         brew::install::linux
       ;;
     esac
-    messages_success "${brew_package_name} Installed"
+    message_success "${brew_package_name} Installed"
 }
 
 function brew::post_install {
@@ -75,8 +76,8 @@ function brew::post_install {
 }
 
 function brew::load {
-    path_prepend "/home/linuxbrew/.linuxbrew/bin"
-    path_prepend "${HOME}/.linuxbrew/bin"
+    export PATH="/home/linuxbrew/.linuxbrew/bin:${PATH}"
+    export PATH="${HOME}/.linuxbrew/bin:${PATH}"
     case "${OSTYPE}" in
       darwin*) ;;
       linux*)
@@ -86,7 +87,7 @@ function brew::load {
               export MANPATH=/home/linuxbrew/.linuxbrew/share/man:$MANPATH
               export INFOPATH=/home/linuxbrew/.linuxbrew/share/info:$INFOPATH
             elif [ -d ~/.linuxbrew ]; then
-              export MANPATH=$HOME/.linuxbrew/share/man:$MANPATH
+              export MANPATH="${HOME}"/.linuxbrew/share/man:$MANPATH
               export INFOPATH=$HOME/.linuxbrew/share/info:$INFOPATH
               export LD_LIBRARY_PATH=$HOME/.linuxbrew/lib:$LD_LIBRARY_PATH
             fi
