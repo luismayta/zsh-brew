@@ -27,7 +27,8 @@ function brew::dependences::install {
 
 function brew::dependences::checked {
     if ! type -p ruby > /dev/null; then
-      message_error "Please install ruby with rvm for  ${brew_package_name}"
+      message_warning "Please install ruby with rvm for  ${brew_package_name}"
+      return
     fi
 }
 

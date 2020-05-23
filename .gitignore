@@ -175,9 +175,3 @@ venv.bak/
 
 # .tfvars files
 *.tfvars
-
-
-# End of https://www.gitignore.io/api/terraform,python,node,ansible,bash
-requirements/private.txt
-.vscode
-*.orig
